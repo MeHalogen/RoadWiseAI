@@ -1,5 +1,13 @@
 # README.md
 
+# RoadWiseAI — AI-Powered Road Safety Intervention System
+
+An intelligent, explainable AI system that recommends road safety interventions based on identified issues, referencing official IRC standards and best practices.
+
+## 🎯 Overview
+
+RoadWiseAI automates the selection of appropriate road safety interventions by:md
+
 # InterveneR â€” Road Safety Intervention GPT
 
 An intelligent, explainable AI system that recommends road safety interventions based on identified issues, referencing official IRC standards and best practices.

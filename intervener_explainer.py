@@ -1,5 +1,5 @@
 # intervener_explainer.py
-# Explanation Layer - Generates readable, cited recommendations
+# Explanation Layer for RoadWiseAI - Generates readable, cited recommendations
 
 from typing import Dict, List, Any
 
@@ -31,7 +31,11 @@ class ExplanationLayer:
             'assumptions': intervention['assumptions'],
             'priority': intervention['priority'],
             'relevance_score': round(score * 100, 1),
-            'confidence': self._score_to_confidence(score)
+            'confidence': self._score_to_confidence(score),
+            'cost_estimate': intervention.get('cost_estimate', 'Variable cost'),
+            'implementation_time': intervention.get('implementation_time', 'Variable timeline'),
+            'effectiveness': intervention.get('effectiveness', 'High impact expected'),
+            'maintenance': intervention.get('maintenance', 'Standard maintenance required')
         }
     
     def _score_to_confidence(self, score: float) -> str:

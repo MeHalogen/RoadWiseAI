@@ -1,5 +1,5 @@
 # intervener_retrieval.py
-# Retrieval Engine - Scoring and ranking interventions
+# Retrieval Engine for RoadWiseAI - Scoring and ranking interventions
 
 from difflib import SequenceMatcher
 from rapidfuzz import fuzz
