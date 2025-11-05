@@ -111,14 +111,57 @@ class InterventionKB:
         return col_map
     
     def _parse_list_field(self, field_str: str) -> List[str]:
-        """Parse list field from CSV string format."""
+        """Parse list field and enhance with relevant keywords."""
         try:
             # Handle JSON list format
             if field_str.startswith('['):
-                return json.loads(field_str.replace("'", '"'))
-            return [field_str]
+                base_keywords = json.loads(field_str.replace("'", '"'))
+            else:
+                base_keywords = [field_str]
+            
+            # Enhance with related terms
+            enhanced_keywords = []
+            for keyword in base_keywords:
+                enhanced_keywords.append(keyword)
+                enhanced_keywords.extend(self._generate_related_keywords(keyword))
+            
+            return list(set(enhanced_keywords))  # Remove duplicates
         except:
             return [field_str]
+    
+    def _generate_related_keywords(self, keyword: str) -> List[str]:
+        """Generate related keywords for better matching."""
+        keyword_lower = keyword.lower()
+        related = []
+        
+        # Mapping of keywords to related terms
+        keyword_mappings = {
+            'damaged': ['broken', 'cracked', 'worn', 'deteriorated', 'faulty'],
+            'faded': ['unclear', 'dim', 'invisible', 'worn out', 'illegible'],
+            'height issue': ['visibility', 'clearance', 'height', 'obstruction'],
+            'wrongly placed': ['misplaced', 'incorrect position', 'wrong location'],
+            'spacing issue': ['gap', 'distance', 'placement', 'arrangement'],
+            'non-retro reflective': ['visibility', 'night', 'dark', 'reflection', 'lighting'],
+            'road sign': ['signage', 'warning', 'traffic sign', 'road marking'],
+            'guardrail': ['barrier', 'safety rail', 'crash barrier', 'vehicles going off road'],
+            'pavement': ['road surface', 'asphalt', 'concrete', 'carriageway'],
+            'intersection': ['junction', 'crossroads', 'traffic signals'],
+            'curve': ['bend', 'turn', 'chevron', 'directional'],
+            'pedestrian': ['walking', 'crossing', 'footpath', 'sidewalk'],
+            'lighting': ['illumination', 'street light', 'visibility', 'night safety']
+        }
+        
+        for key, values in keyword_mappings.items():
+            if key in keyword_lower:
+                related.extend(values)
+        
+        # Add context-specific terms
+        if 'sign' in keyword_lower:
+            related.extend(['warning', 'information', 'regulatory', 'mandatory'])
+        if 'marking' in keyword_lower:
+            related.extend(['lane', 'direction', 'guidance', 'delineation'])
+            
+        return related
     
     def _extract_rationale(self, row, col_map: Dict[str, str]) -> str:
         """Extract or generate rationale from row data."""

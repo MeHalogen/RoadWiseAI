@@ -179,7 +179,7 @@ class RetrievalEngine:
         return scored_interventions[:top_k]
     
     def check_minimum_threshold(self, scored_items: List[Tuple[Dict, float]], 
-                               threshold: float = 0.3) -> bool:
+                               threshold: float = 0.2) -> bool:
         """
         Check if top-ranked intervention meets minimum threshold.
         
