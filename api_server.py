@@ -1,5 +1,5 @@
 # api_server.py
-# FastAPI backend server for InterveneR (Optional REST API)
+# FastAPI backend server for RoadWiseAI (Optional REST API)
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
@@ -13,13 +13,13 @@ from intervener_reporter import ReportGenerator
 
 # Initialize app
 app = FastAPI(
-    title="InterveneR API",
+    title="RoadWiseAI API",
     description="Road Safety Intervention GPT - REST API",
-    version="1.0.0"
+    version="2.0.0"
 )
 
 # Initialize modules
-kb = InterventionKB("Seed_interventions__InterveneR.csv")
+kb = InterventionKB("GPT_Input_DB.xlsx")
 retrieval_engine = RetrievalEngine(kb)
 explainer = ExplanationLayer()
 reporter = ReportGenerator()
@@ -45,8 +45,8 @@ class RecommendationResponse(BaseModel):
 async def root():
     """Root endpoint - API info."""
     return {
-        "name": "InterveneR API",
-        "version": "1.0.0",
+        "name": "RoadWiseAI API",
+        "version": "2.0.0",
         "description": "Road Safety Intervention GPT",
         "endpoints": {
             "/suggest": "POST - Get intervention recommendations",
@@ -61,7 +61,7 @@ async def health_check():
     return {
         "status": "healthy",
         "kb_size": len(kb.get_all()),
-        "service": "InterveneR v1.0"
+        "service": "RoadWiseAI v2.0"
     }
 
 @app.get("/kb/stats")
@@ -173,7 +173,7 @@ async def generate_pdf(request: RecommendationRequest):
             pdf_path
         )
         
-        return FileResponse(pdf_path, media_type="application/pdf", filename="InterveneR_Report.pdf")
+        return FileResponse(pdf_path, media_type="application/pdf", filename="RoadWiseAI_Report.pdf")
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -217,7 +217,7 @@ async def generate_presentation(request: RecommendationRequest):
         return FileResponse(
             pptx_path,
             media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-            filename="InterveneR_Presentation.pptx"
+            filename="RoadWiseAI_Presentation.pptx"
         )
     
     except Exception as e:

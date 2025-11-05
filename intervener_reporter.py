@@ -1,5 +1,5 @@
 # intervener_reporter.py
-# Report Generator - Creates PDF and PowerPoint outputs
+# Report Generator for RoadWiseAI - Creates PDF and PowerPoint outputs
 
 import json
 from datetime import datetime
@@ -50,7 +50,7 @@ class ReportGenerator:
             spaceAfter=12,
             alignment=1  # Center
         )
-        story.append(Paragraph("InterveneR", title_style))
+        story.append(Paragraph("RoadWiseAI", title_style))
         story.append(Paragraph("Road Safety Intervention Recommendation System", styles['Normal']))
         story.append(Spacer(1, 0.2*inch))
         
@@ -160,7 +160,7 @@ class ReportGenerator:
         
         # Slide 1: Welcome
         slide1 = prs.slides.add_slide(blank_layout)
-        self._add_title_slide(slide1, "InterveneR", "Road Safety Intervention GPT")
+        self._add_title_slide(slide1, "RoadWiseAI", "Road Safety Intervention GPT")
         
         # Slide 2: Problem Statement
         slide2 = prs.slides.add_slide(blank_layout)
@@ -208,7 +208,7 @@ class ReportGenerator:
         
         # Slide 7: Thank You
         slide7 = prs.slides.add_slide(blank_layout)
-        self._add_title_slide(slide7, "Thank You", "InterveneR: From Problem to Intervention in One Query")
+        self._add_title_slide(slide7, "Thank You", "RoadWiseAI: From Problem to Intervention in One Query")
         
         prs.save(output_path)
         print(f"PowerPoint presentation generated: {output_path}")
